@@ -27,7 +27,21 @@ func main() {
 	canvasRect := canvas.NewRectangle(backgroundColor)
 	canvasRect.SetMinSize(fyne.Size{Width: float32(canvaWidth), Height: float32(canvaHeight)})
 
-	rightFrame := container.NewWithoutLayout(canvasRect)
+	retaVertical := canvas.NewLine(color.Black)
+	retaVertical.StrokeWidth = 1
+	retaVertical.Position1 = fyne.NewPos(float32(canvaWidth/2), 0)
+	retaVertical.Position2 = fyne.NewPos(float32(canvaWidth/2), float32(canvaHeight))
+
+	retaHorizontal := canvas.NewLine(color.Black)
+	retaHorizontal.StrokeWidth = 1
+	retaHorizontal.Position1 = fyne.NewPos(0, float32(canvaHeight/2))
+	retaHorizontal.Position2 = fyne.NewPos(float32(canvaWidth), float32(canvaHeight/2))
+
+	rightFrame := container.NewWithoutLayout(
+		canvasRect,
+		retaHorizontal,
+		retaVertical,
+	)
 	canvasRect.Resize(fyne.NewSize(float32(canvaWidth), float32(canvaHeight)))
 	canvasRect.Move(fyne.NewPos(0, 0))
 
