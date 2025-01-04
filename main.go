@@ -1,6 +1,7 @@
 package main
 
 import (
+	"ProjetoCG/util"
 	"image/color"
 
 	"fyne.io/fyne/v2"
@@ -17,10 +18,13 @@ func main() {
 	windowHeight := 1080
 	canvaWidth := 1500
 	canvaHeight := 1000
+	centroX := canvaWidth / 2
+	centroY := canvaHeight / 2
+
 	myWindow.Resize(fyne.Size{Width: float32(windowWidth), Height: float32(windowHeight)})
 
 	// Frame esquerdo (botões)
-	leftFrame := CreateButtons(myApp)
+	leftFrame := util.CreateButtons(myApp)
 
 	// Config do Canvas
 	backgroundColor := color.NRGBA{R: 255, G: 255, B: 255, A: 255}
@@ -37,11 +41,21 @@ func main() {
 	retaHorizontal.Position1 = fyne.NewPos(0, float32(canvaHeight/2))
 	retaHorizontal.Position2 = fyne.NewPos(float32(canvaWidth), float32(canvaHeight/2))
 
+	ponto := util.DrawPixel(centroX+150, centroY-150)
+
+	reta := util.DDA(444, 555, 1400, 1500)
+
 	rightFrame := container.NewWithoutLayout(
 		canvasRect,
 		retaHorizontal,
 		retaVertical,
+		ponto,
 	)
+
+	for _, obj := range reta {
+		rightFrame.Add(obj)
+	}
+
 	canvasRect.Resize(fyne.NewSize(float32(canvaWidth), float32(canvaHeight)))
 	canvasRect.Move(fyne.NewPos(0, 0))
 
