@@ -41,20 +41,18 @@ func main() {
 	retaHorizontal.Position1 = fyne.NewPos(0, float32(canvaHeight/2))
 	retaHorizontal.Position2 = fyne.NewPos(float32(canvaWidth), float32(canvaHeight/2))
 
-	ponto := util.DrawPixel(centroX+150, centroY-150)
-
-	reta := util.DDA(444, 555, 1400, 1500)
+	reta := util.DDA(float64(centroX+2), float64(centroY+2), 1500, 500)
+	retaFrame := container.NewWithoutLayout()
+	for _, obj := range reta {
+		retaFrame.Add(obj)
+	}
 
 	rightFrame := container.NewWithoutLayout(
 		canvasRect,
 		retaHorizontal,
 		retaVertical,
-		ponto,
+		retaFrame,
 	)
-
-	for _, obj := range reta {
-		rightFrame.Add(obj)
-	}
 
 	canvasRect.Resize(fyne.NewSize(float32(canvaWidth), float32(canvaHeight)))
 	canvasRect.Move(fyne.NewPos(0, 0))

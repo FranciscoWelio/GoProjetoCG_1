@@ -2,9 +2,11 @@ package util
 
 import (
 	"fmt"
+	"image/color"
 	"math"
 
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
 )
 
 func DDA(x0, y0, xEnd, yEnd float64) []fyne.CanvasObject {
@@ -16,13 +18,18 @@ func DDA(x0, y0, xEnd, yEnd float64) []fyne.CanvasObject {
 	x := x0
 	y := y0
 	var ponto []fyne.CanvasObject
-	ponto = append(ponto, DrawPixel(int(x), int(-y)))
-	fmt.Println(int(x), int(-y))
+	pixel := canvas.NewRectangle(color.Black)
+	pixel.Resize(fyne.NewSize(1, 1)) // Tamanho do pixel
+	pixel.Move(fyne.NewPos(float32(x), float32(y)))
+	ponto = append(ponto, pixel)
 	for i := 0; i < int(passo); i++ {
 		x += xIncremento
 		y += yIncremento
-		fmt.Println(int(x), int(-y))
-		ponto = append(ponto, DrawPixel(int(x), int(-y)))
+		pixel := canvas.NewRectangle(color.Black)
+		pixel.Resize(fyne.NewSize(1, 1)) // Tamanho do pixel
+		pixel.Move(fyne.NewPos(float32(x), float32(y)))
+		ponto = append(ponto, pixel)
 	}
+	fmt.Println(ponto[1])
 	return ponto
 }
