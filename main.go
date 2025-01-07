@@ -18,13 +18,14 @@ func main() {
 	windowHeight := 1080
 	canvaWidth := 1500
 	canvaHeight := 1000
-	centroX := canvaWidth / 2
-	centroY := canvaHeight / 2
+	// centroX := canvaWidth / 2
+	// centroY := canvaHeight / 2
 
 	myWindow.Resize(fyne.Size{Width: float32(windowWidth), Height: float32(windowHeight)})
 
 	// Frame esquerdo (botões)
-	leftFrame := util.CreateButtons(myApp)
+	canvaConteiner := container.NewWithoutLayout()
+	leftFrame := util.CreateButtons(myApp, canvaConteiner, canvaWidth, canvaHeight)
 
 	// Config do Canvas
 	backgroundColor := color.NRGBA{R: 255, G: 255, B: 255, A: 255}
@@ -41,17 +42,17 @@ func main() {
 	retaHorizontal.Position1 = fyne.NewPos(0, float32(canvaHeight/2))
 	retaHorizontal.Position2 = fyne.NewPos(float32(canvaWidth), float32(canvaHeight/2))
 
-	reta := util.DDA(float64(centroX+2), float64(centroY+2), 1500, 500)
-	retaFrame := container.NewWithoutLayout()
-	for _, obj := range reta {
-		retaFrame.Add(obj)
-	}
+	// reta := util.DDA(float64(centroX+2), float64(centroY+2), 1500, 500)
+	// retaFrame := container.NewWithoutLayout()
+	// for _, obj := range reta {
+	// 	retaFrame.Add(obj)
+	// }
 
 	rightFrame := container.NewWithoutLayout(
 		canvasRect,
 		retaHorizontal,
 		retaVertical,
-		retaFrame,
+		canvaConteiner,
 	)
 
 	canvasRect.Resize(fyne.NewSize(float32(canvaWidth), float32(canvaHeight)))
