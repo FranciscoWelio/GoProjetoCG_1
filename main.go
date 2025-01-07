@@ -34,13 +34,13 @@ func main() {
 
 	retaVertical := canvas.NewLine(color.Black)
 	retaVertical.StrokeWidth = 1
-	retaVertical.Position1 = fyne.NewPos(float32(canvaWidth/2), 0)
-	retaVertical.Position2 = fyne.NewPos(float32(canvaWidth/2), float32(canvaHeight))
+	retaVertical.Position1 = fyne.NewPos(float32(canvaWidth/2)+0.5, 0)
+	retaVertical.Position2 = fyne.NewPos(float32(canvaWidth/2)+0.5, float32(canvaHeight))
 
 	retaHorizontal := canvas.NewLine(color.Black)
 	retaHorizontal.StrokeWidth = 1
-	retaHorizontal.Position1 = fyne.NewPos(0, float32(canvaHeight/2))
-	retaHorizontal.Position2 = fyne.NewPos(float32(canvaWidth), float32(canvaHeight/2))
+	retaHorizontal.Position1 = fyne.NewPos(0, float32(canvaHeight/2)+0.5)
+	retaHorizontal.Position2 = fyne.NewPos(float32(canvaWidth), float32(canvaHeight/2)+0.5)
 
 	// reta := util.DDA(float64(centroX+2), float64(centroY+2), 1500, 500)
 	// retaFrame := container.NewWithoutLayout()

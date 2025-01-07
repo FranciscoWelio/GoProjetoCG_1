@@ -18,11 +18,10 @@ func DDA(x0, y0, xEnd, yEnd float64, canvasContent *fyne.Container, width, heigt
 	centerY := float64(heigth / 2)
 	x := x0
 	y := y0
-	var ponto []fyne.CanvasObject
 	pixel := canvas.NewRectangle(color.Black)
 	pixel.Resize(fyne.NewSize(1, 1)) // Tamanho do pixel
 	pixel.Move(fyne.NewPos(float32(centerX+x), float32(centerY-y)))
-	ponto = append(ponto, pixel)
+	canvasContent.Add(pixel)
 	for i := 0; i < int(passo); i++ {
 		x += xIncremento
 		y += yIncremento

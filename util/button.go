@@ -20,7 +20,7 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 	yEnd := widget.NewEntry()
 	yEnd.SetPlaceHolder("Y Final")
 	label := widget.NewLabel("Controles:")
-	gridInput := container.New(layout.NewGridLayout(2), x0, y0, xEnd, yEnd)
+	gridInputdda := container.New(layout.NewGridLayout(2), x0, y0, xEnd, yEnd)
 	var ddaButon *widget.Button
 	ddaButon = widget.NewButton("Reta DDA", func() {
 		x, _ := strconv.ParseFloat(x0.Text, 64)
@@ -31,15 +31,23 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 		DDA(x, y, XE, YE, canvasContent, width, height)
 	})
 
-	aux1 := false
+	x0pm := widget.NewEntry()
+	x0pm.SetPlaceHolder("X")
+	y0pm := widget.NewEntry()
+	y0pm.SetPlaceHolder("Y")
+	xEndpm := widget.NewEntry()
+	xEndpm.SetPlaceHolder("X Final")
+	yEndpm := widget.NewEntry()
+	yEndpm.SetPlaceHolder("Y Final")
+
+	gridInputpm := container.New(layout.NewGridLayout(2), x0pm, y0pm, xEndpm, yEndpm)
 	var PM *widget.Button
 	PM = widget.NewButton("Reta Ponto Médio", func() {
-		if aux1 {
-			PM.SetText("Reta Ponto Médio")
-		} else {
-			PM.SetText("Em desenvolvimento")
-		}
-		aux1 = !aux1
+		x, _ := strconv.ParseFloat(x0pm.Text, 64)
+		y, _ := strconv.ParseFloat(y0pm.Text, 64)
+		XE, _ := strconv.ParseFloat(xEndpm.Text, 64)
+		YE, _ := strconv.ParseFloat(yEndpm.Text, 64)
+		PontoMedio(x, y, XE, YE, canvasContent, width, height)
 	})
 
 	exitButton := widget.NewButton("Sair", func() {
@@ -50,8 +58,9 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 	return container.NewVBox(
 		label,
 		ddaButon,
-		gridInput,
+		gridInputdda,
 		PM,
+		gridInputpm,
 		exitButton,
 		layout.NewSpacer(), // Adiciona espaço flexível
 	)
