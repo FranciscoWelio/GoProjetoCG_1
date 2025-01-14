@@ -1,20 +1,15 @@
 package util
 
 import (
-	"ProjetoCG/dialog"
 	"ProjetoCG/err"
-	"fmt"
-	"strconv"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 
-	// "fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 )
 
-// CreateButtons cria e retorna o frame com os botões
 func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height int) fyne.CanvasObject {
 	x0 := widget.NewEntry()
 	x0.SetPlaceHolder("X")
@@ -25,32 +20,15 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 	yEnd := widget.NewEntry()
 	yEnd.SetPlaceHolder("Y Final")
 	label := widget.NewLabel("Controles:")
-	myDialog := dialog.NewCustomDialog(app.NewWindow("Erro"), "Erro nos valores")
 	gridInputdda := container.New(layout.NewGridLayout(2), x0, y0, xEnd, yEnd)
-	var ddaButon *widget.Button
-	ddaButon = widget.NewButton("Reta DDA", func() {
-		x, erro := err.ValidateInput(x0.Text, "x")
-		fmt.Println(erro)
-		if erro != nil {
-			myDialog.Show()
-			return
-		}
-		y, erro := err.ValidateInput(y0.Text, "Y")
-		if erro != nil {
-			// dialog.ShowError(erro, app.NewWindow("Erro"))
-			return
-		}
-		XE, erro := err.ValidateInput(xEnd.Text, "x")
-		if erro != nil {
-			// dialog.ShowError(erro, app.NewWindow("Erro"))
-			return
-		}
-		YE, erro := err.ValidateInput(yEnd.Text, "x")
-		if erro != nil {
-			// dialog.ShowError(erro, app.NewWindow("Erro"))
-			return
-		}
 
+	ddaButton := widget.NewButton("Reta DDA", func() {
+		x, _ := err.ValidateInput(x0.Text, "X", app.Driver().AllWindows()[0])
+		y, _ := err.ValidateInput(y0.Text, "Y", app.Driver().AllWindows()[0])
+		XE, _ := err.ValidateInput(xEnd.Text, "XEnd", app.Driver().AllWindows()[0])
+		YE, _ := err.ValidateInput(yEnd.Text, "YEnd", app.Driver().AllWindows()[0])
+
+		// Chama o algoritmo DDA
 		DDA(x, y, XE, YE, canvasContent, width, height)
 	})
 
@@ -64,16 +42,13 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 	yEndpm.SetPlaceHolder("Y Final")
 
 	gridInputpm := container.New(layout.NewGridLayout(2), x0pm, y0pm, xEndpm, yEndpm)
-	var PM *widget.Button
-	PM = widget.NewButton("Reta Ponto Médio", func() {
-		x, err := strconv.ParseFloat(x0pm.Text, 64)
-		y, _ := strconv.ParseFloat(y0pm.Text, 64)
-		XE, _ := strconv.ParseFloat(xEndpm.Text, 64)
-		YE, _ := strconv.ParseFloat(yEndpm.Text, 64)
-		if err != nil {
-			// dialog.ShowError(err, app.NewWindow("Erro"))
-			return
-		}
+	pmButton := widget.NewButton("Reta Ponto Médio", func() {
+		x, _ := err.ValidateInput(x0pm.Text, "X", app.Driver().AllWindows()[0])
+		y, _ := err.ValidateInput(y0pm.Text, "Y", app.Driver().AllWindows()[0])
+		XE, _ := err.ValidateInput(xEndpm.Text, "XEnd", app.Driver().AllWindows()[0])
+		YE, _ := err.ValidateInput(yEndpm.Text, "YEnd", app.Driver().AllWindows()[0])
+
+		// Chama o algoritmo do Ponto Médio
 		PontoMedio(x, y, XE, YE, canvasContent, width, height)
 	})
 
@@ -84,11 +59,11 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 	// Frame da esquerda
 	return container.NewVBox(
 		label,
-		ddaButon,
+		ddaButton,
 		gridInputdda,
-		PM,
+		pmButton,
 		gridInputpm,
 		exitButton,
-		layout.NewSpacer(), // Adiciona espaço flexível
+		layout.NewSpacer(),
 	)
 }

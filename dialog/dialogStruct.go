@@ -9,38 +9,67 @@ import (
 type DialogStruct struct {
 	parent  fyne.Window
 	content fyne.CanvasObject
-	dialog  Dialog
+	dialog  dialog.Dialog
 }
+
+var _ Dialog = (*DialogStruct)(nil)
 
 func NewCustomDialog(parent fyne.Window, message string) *DialogStruct {
 	content := widget.NewLabel(message)
 	d := &DialogStruct{
 		parent:  parent,
 		content: content,
+		dialog:  dialog.NewCustom("Atenção", "Fechar", content, parent),
 	}
-	d.dialog = dialog.NewCustom("Custom Dialog", "Dismiss", content, parent)
 	return d
 }
+
+// Exibe o diálogo
 func (d *DialogStruct) Show() {
-	d.dialog.Show()
+	if d.dialog != nil {
+		d.dialog.Show()
+	}
 }
 
+// Oculta o diálogo
 func (d *DialogStruct) Hide() {
-	d.dialog.Hide()
+	if d.dialog != nil {
+		d.dialog.Hide()
+	}
 }
 
+// Altera o texto do botão de fechamento
 func (d *DialogStruct) SetDismissText(label string) {
-	d.dialog.SetDismissText(label)
+	if d.dialog != nil {
+		d.dialog.SetDismissText(label)
+	}
 }
 
+// Define o callback ao fechar o diálogo
 func (d *DialogStruct) SetOnClosed(closed func()) {
-	d.dialog.SetOnClosed(closed)
+	if d.dialog != nil {
+		d.dialog.SetOnClosed(closed)
+	}
 }
 
+// Atualiza o conteúdo do diálogo
 func (d *DialogStruct) Refresh() {
-	d.dialog.Refresh()
+	if d.dialog != nil {
+		d.dialog.Refresh()
+	}
 }
 
+// Redimensiona o diálogo
 func (d *DialogStruct) Resize(size fyne.Size) {
-	d.dialog.Resize(size)
+	if d.dialog != nil {
+		d.dialog.Resize(size)
+	}
+}
+
+// Retorna o tamanho mínimo do diálogo
+func (d *DialogStruct) MinSize() fyne.Size {
+	if d.dialog != nil {
+		return d.dialog.MinSize()
+	}
+	return fyne.NewSize(0, 0)
 }
