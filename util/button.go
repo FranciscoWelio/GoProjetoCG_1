@@ -23,10 +23,10 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 	gridInputdda := container.New(layout.NewGridLayout(2), x0, y0, xEnd, yEnd)
 
 	ddaButton := widget.NewButton("Reta DDA", func() {
-		x, _ := err.ValidateInput(x0.Text, "X", app.Driver().AllWindows()[0])
-		y, _ := err.ValidateInput(y0.Text, "Y", app.Driver().AllWindows()[0])
-		XE, _ := err.ValidateInput(xEnd.Text, "XEnd", app.Driver().AllWindows()[0])
-		YE, _ := err.ValidateInput(yEnd.Text, "YEnd", app.Driver().AllWindows()[0])
+		x, _ := err.ValidateInput(&x0.Text, "X", app.Driver().AllWindows()[0])
+		y, _ := err.ValidateInput(&y0.Text, "Y", app.Driver().AllWindows()[0])
+		XE, _ := err.ValidateInput(&xEnd.Text, "XEnd", app.Driver().AllWindows()[0])
+		YE, _ := err.ValidateInput(&yEnd.Text, "YEnd", app.Driver().AllWindows()[0])
 
 		// Chama o algoritmo DDA
 		DDA(x, y, XE, YE, canvasContent, width, height)
@@ -43,13 +43,18 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 
 	gridInputpm := container.New(layout.NewGridLayout(2), x0pm, y0pm, xEndpm, yEndpm)
 	pmButton := widget.NewButton("Reta Ponto Médio", func() {
-		x, _ := err.ValidateInput(x0pm.Text, "X", app.Driver().AllWindows()[0])
-		y, _ := err.ValidateInput(y0pm.Text, "Y", app.Driver().AllWindows()[0])
-		XE, _ := err.ValidateInput(xEndpm.Text, "XEnd", app.Driver().AllWindows()[0])
-		YE, _ := err.ValidateInput(yEndpm.Text, "YEnd", app.Driver().AllWindows()[0])
+		x, _ := err.ValidateInput(&x0pm.Text, "X", app.Driver().AllWindows()[0])
+		y, _ := err.ValidateInput(&y0pm.Text, "Y", app.Driver().AllWindows()[0])
+		XE, _ := err.ValidateInput(&xEndpm.Text, "XEnd", app.Driver().AllWindows()[0])
+		YE, _ := err.ValidateInput(&yEndpm.Text, "YEnd", app.Driver().AllWindows()[0])
 
 		// Chama o algoritmo do Ponto Médio
 		PontoMedio(x, y, XE, YE, canvasContent, width, height)
+	})
+
+	cleanButton := widget.NewButton("Limpar Tela", func() {
+		canvasContent.Objects = nil
+		canvasContent.Refresh()
 	})
 
 	exitButton := widget.NewButton("Sair", func() {
@@ -63,6 +68,7 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 		gridInputdda,
 		pmButton,
 		gridInputpm,
+		cleanButton,
 		exitButton,
 		layout.NewSpacer(),
 	)
