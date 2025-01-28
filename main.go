@@ -18,8 +18,6 @@ func main() {
 	windowHeight := 1080
 	canvaWidth := 1500
 	canvaHeight := 1000
-	// centroX := canvaWidth / 2
-	// centroY := canvaHeight / 2
 
 	myWindow.Resize(fyne.Size{Width: float32(windowWidth), Height: float32(windowHeight)})
 
@@ -41,12 +39,6 @@ func main() {
 	retaHorizontal.StrokeWidth = 1
 	retaHorizontal.Position1 = fyne.NewPos(0, float32(canvaHeight/2)+0.5)
 	retaHorizontal.Position2 = fyne.NewPos(float32(canvaWidth), float32(canvaHeight/2)+0.5)
-
-	// reta := util.DDA(float64(centroX+2), float64(centroY+2), 1500, 500)
-	// retaFrame := container.NewWithoutLayout()
-	// for _, obj := range reta {
-	// 	retaFrame.Add(obj)
-	// }
 
 	rightFrame := container.NewWithoutLayout(
 		canvasRect,
