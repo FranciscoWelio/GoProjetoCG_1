@@ -2,6 +2,7 @@ package util
 
 import (
 	"ProjetoCG/err"
+	"fmt"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -93,6 +94,108 @@ func Buttons2D(app fyne.App, canvasContent *fyne.Container, width, height int) f
 	return container.NewVBox(
 		label,
 		gridInputdda,
+		exitButton,
+	)
+}
+
+func FormasMatriz(app fyne.App, canvasContent *fyne.Container, width, height int) fyne.CanvasObject {
+	tx := widget.NewEntry()
+	tx.SetPlaceHolder("Translado em X")
+	ty := widget.NewEntry()
+	ty.SetPlaceHolder("Translado em Y")
+	sx := widget.NewEntry()
+	sx.SetPlaceHolder("Escala em X")
+	sy := widget.NewEntry()
+	sy.SetPlaceHolder("Escala em Y")
+	rx := widget.NewEntry()
+	rx.SetPlaceHolder("Rotação em X")
+	ry := widget.NewEntry()
+	ry.SetPlaceHolder("Rotação em Y")
+	scx := widget.NewEntry()
+	scx.SetPlaceHolder("Cisalhar em X")
+	scy := widget.NewEntry()
+	scy.SetPlaceHolder("Cisalhar em Y")
+
+	label := widget.NewLabel("Composição 2D:")
+	gridInputada := container.New(layout.NewGridLayout(2), tx, ty, sx, sy, rx, ry, scx, scy)
+	exitButton := widget.NewButton("Sair", func() {
+		app.Quit()
+	})
+	return container.NewVBox(
+		label,
+		gridInputada,
+		exitButton,
+	)
+}
+
+func FormasMatriz3D(app fyne.App, canvasContent *fyne.Container, width, height int) fyne.CanvasObject {
+	tx := widget.NewEntry()
+	tx.SetPlaceHolder("Translado em X")
+	ty := widget.NewEntry()
+	ty.SetPlaceHolder("Translado em Y")
+	tz := widget.NewEntry()
+	tz.SetPlaceHolder("Translado em Z")
+	sx := widget.NewEntry()
+	sx.SetPlaceHolder("Escala em X")
+	sy := widget.NewEntry()
+	sy.SetPlaceHolder("Escala em Y")
+	sz := widget.NewEntry()
+	sz.SetPlaceHolder("Escala em Z")
+	rxy := widget.NewEntry()
+	rxy.SetPlaceHolder("Rotação em XY")
+	ryz := widget.NewEntry()
+	ryz.SetPlaceHolder("Rotação em YZ")
+	rzx := widget.NewEntry()
+	rzx.SetPlaceHolder("Rotação em ZX")
+	scx := widget.NewEntry()
+	scx.SetPlaceHolder("Cisalhar em X")
+	scy := widget.NewEntry()
+	scy.SetPlaceHolder("Cisalhar em Y")
+	scz := widget.NewEntry()
+	scz.SetPlaceHolder("Cisalhar em Z")
+
+	label := widget.NewLabel("Composição 2D:")
+
+	aplicarT := widget.NewButton("Aplicar Translação", func() {
+		fmt.Println("Transladrou")
+	})
+	aplicarS := widget.NewButton("Aplicar Escala", func() {
+		fmt.Println("Escalou")
+	})
+	aplicarR := widget.NewButton("Aplicar Rotação", func() {
+		fmt.Println("Rotacionou")
+	})
+	aplicarRefXY := widget.NewButton("Reflexão XY", func() {
+		fmt.Println("Refletiu")
+	})
+	aplicarRefYZ := widget.NewButton("Reflexão YZ", func() {
+		fmt.Println("Refletiu")
+	})
+	aplicarRefZX := widget.NewButton("Reflexão ZX", func() {
+		fmt.Println("Refletiu")
+	})
+	aplicarSci := widget.NewButton("Aplicar Cisalhamento", func() {
+		fmt.Println("Cisalhou")
+	})
+	exitButton := widget.NewButton("Sair", func() {
+		app.Quit()
+	})
+	gridInputadaT := container.New(layout.NewGridLayout(3), tx, ty, tz)
+	gridInputadaS := container.New(layout.NewGridLayout(3), sx, sy, sz)
+	gridInputadaR := container.New(layout.NewGridLayout(3), rxy, ryz, rzx)
+	gridInputadaSc := container.New(layout.NewGridLayout(3), scx, scy, scz)
+	gridButtonsRef := container.New(layout.NewGridLayout(3), aplicarRefXY, aplicarRefYZ, aplicarRefZX)
+	return container.NewVBox(
+		label,
+		gridInputadaT,
+		aplicarT,
+		gridInputadaS,
+		aplicarS,
+		gridInputadaR,
+		aplicarR,
+		gridButtonsRef,
+		gridInputadaSc,
+		aplicarSci,
 		exitButton,
 	)
 }
