@@ -73,3 +73,26 @@ func CreateButtons(app fyne.App, canvasContent *fyne.Container, width, height in
 		layout.NewSpacer(),
 	)
 }
+
+func Buttons2D(app fyne.App, canvasContent *fyne.Container, width, height int) fyne.CanvasObject {
+
+	x0 := widget.NewEntry()
+	x0.SetPlaceHolder("X")
+	y0 := widget.NewEntry()
+	y0.SetPlaceHolder("Y")
+	xEnd := widget.NewEntry()
+	xEnd.SetPlaceHolder("X Final")
+	yEnd := widget.NewEntry()
+	yEnd.SetPlaceHolder("Y Final")
+	label := widget.NewLabel("Controles 2D:")
+	gridInputdda := container.New(layout.NewGridLayout(2), x0, y0, xEnd, yEnd)
+	exitButton := widget.NewButton("Sair", func() {
+		app.Quit()
+	})
+
+	return container.NewVBox(
+		label,
+		gridInputdda,
+		exitButton,
+	)
+}
