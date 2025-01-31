@@ -23,7 +23,27 @@ func main() {
 
 	// Frame esquerdo (botões)
 	canvaConteiner := container.NewWithoutLayout()
-	leftFrame := util.CreateButtons(myApp, canvaConteiner, canvaWidth, canvaHeight)
+	buttonContainer := container.NewVBox()
+	// leftFrame := util.CreateButtons(myApp, canvaConteiner, canvaWidth, canvaHeight)
+
+	updateButton := func(tipo string) {
+		buttonContainer.Objects = nil
+		if tipo == "2D" {
+			buttonContainer.Add(util.CreateButtons(myApp, canvaConteiner, canvaWidth, canvaHeight))
+		} else if tipo == "Matriz" {
+			buttonContainer.Add(util.FormasMatriz(myApp, canvaConteiner, canvaWidth, canvaHeight))
+		} else if tipo == "Matriz 3D" {
+			buttonContainer.Add(util.FormasMatriz3D(myApp, canvaConteiner, canvaWidth, canvaHeight))
+		}
+		buttonContainer.Refresh()
+	}
+
+	updateButton("2D")
+
+	menuBar := util.MakeMenu(myApp, myWindow, func(tipo string) {
+		updateButton(tipo)
+	})
+	myWindow.SetMainMenu(menuBar)
 
 	// Config do Canvas
 	backgroundColor := color.NRGBA{R: 255, G: 255, B: 255, A: 255}
@@ -52,7 +72,7 @@ func main() {
 
 	// Definindo os objetos principais do frame
 	mainContent := container.NewHSplit(
-		leftFrame,
+		buttonContainer,
 		rightFrame,
 	)
 	mainContent.SetOffset(0.25)
